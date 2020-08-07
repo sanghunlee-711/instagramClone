@@ -1,27 +1,31 @@
 import React, { Component } from 'react';
 
-let comment5 = []
 
 class Feed extends Component {
     constructor(props){
       super(props)
 
       this.state = {
-        // id :'id',
-        input : 'input',
-        comments: []
+        input : '',
+        comments: [],
       }
     }
+
     inputText =(e)=>{
-      this.setState({input : e.target.value})
-      console.log(this.state.input)
+      this.setState({input : e.target.value}, ()=> { 
+        console.log(this.state.input)
+      })
     }
 
-
     addComment = () => {
+      this.setState({
+        comments: [...this.state.comments, this.state.input]
+      }, ()=> console.log(this.state.comments))
+      this.setState({input:''})
+    }
 
-      console.log("nonononononono")
-      const newOne = comment5.map((el) =>       
+    render() {
+      const newOne = this.state.comments.map((el) =>       
       <li>
         <div class="plusTypedComment">
               <div><span>sanghun</span><span class="plusFeedComment">{el}</span></div>
@@ -30,18 +34,13 @@ class Feed extends Component {
                       <img alt = "/"src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" class="plusCommentLike"/>
                   </div>
                   <button class="commentDeleteButton" type="submit">
-                      <img alt = "/"class="plusCommentDeleteBtn" src="./img/deletebtn.png"/>
+                      <img alt = "/"class="plusCommentDeleteBtn" src= "../public/images/deletebtn.png"/>
                   </button>
               </div>
           </div>
       </li>
-      );
-      this.setState({comments : newOne}); 
-    }
-    
-
-  
-    render() {
+            
+            )
         return (
                 <section className="feed">
                   <header>
@@ -98,19 +97,18 @@ class Feed extends Component {
                             </span>
                           </div>
                         </div>
-                      {this.state.comments}
+                      {newOne}
                       </ul>
                       <div className="feedPostingTime">
                         77 Minute
                       </div>
                     </div>
                     <section className="feedCommentInput">
-                      <textarea onChange = {this.inputText} className="commentInputTextarea" type="text" placeholder="Add a comment..."></textarea>
+        <textarea value ={this.state.input} onChange = {this.inputText} className="commentInputTextarea" type="text" placeholder="Add a comment..."></textarea>
                       <button onClick = {() => {
-                        comment5.push(this.state.input);
                         this.addComment();
                       }
-                        }type="submit" className="commentSubmitButton">
+                        } type="submit" className="commentSubmitButton">
                         Post
                       </button>
                     </section>

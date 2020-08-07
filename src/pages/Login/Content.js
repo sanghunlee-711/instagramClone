@@ -17,7 +17,7 @@ class Content extends React.Component{
 
 
     updateId =(evt)=>{
-        this.setState({id:evt.target.value})
+        this.setState({id : evt.target.value})
         if(this.state.id.length >=5 && this.state.pw.length>=5 && this.state.id.includes("@")){
             this.setState({disabled : false});
         }
@@ -40,10 +40,7 @@ class Content extends React.Component{
         console.log(this.state.id)
         console.log(this.state.pw)
     }
-    // goToMain = ()=>{
-        
-    //     this.props.history.push('/');
-    // }
+
 
     render(){
         return(<article>
