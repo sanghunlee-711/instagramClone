@@ -58,6 +58,7 @@
 
     .navRightIcon img {
         width: 25px;
+        margin: 0px 4px;
     }
 
     .navLeftIcon {
@@ -135,7 +136,8 @@
     .feeds {
         display: flex;
         justify-content: center;
-        margin-top: 80px;
+        min-width: 900px;
+        margin-top: 55px;
         z-index: -1;
         background-color: #FAFAFA;
     }
@@ -349,6 +351,11 @@
         margin: 10px;
         padding-top: 15px;
         background-color: #FAFAFA;
+        
+
+        @media screen and(max-width: 972px) {
+            display: none;
+            }       
     }
 
     .sideBarMylogo {
@@ -440,5 +447,4 @@
         font-weight: 700;
         color: #0095f6;
     }
-
 }

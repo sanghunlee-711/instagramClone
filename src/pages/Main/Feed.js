@@ -1,46 +1,59 @@
 import React, { Component } from 'react';
 
+// let mock = [{id:1 , username: 'name1', comment:'what1'}, {id:2 , username: 'name2', comment:'what2'}]
+let mock = []
 
 class Feed extends Component {
     constructor(props){
       super(props)
 
       this.state = {
+        id: 0,
         input : '',
-        comments: [],
+        comments: [...mock],
+        plusComment: '',
       }
     }
-
     inputText =(e)=>{
       this.setState({input : e.target.value}, ()=> { 
         console.log(this.state.input)
       })
     }
-
-    addComment = () => {
+    addComment = (e) => {
+      this.setState({id: this.state.id+1})
       this.setState({
-        comments: [...this.state.comments, this.state.input]
+        // comments: [...this.state.comments, this.state.input]
       }, ()=> console.log(this.state.comments))
       this.setState({input:''})
+      this.state.comments.push({id: this.state.id, username:'rarara', comment: this.state.input})
+      console.log(this.state.comments)
     }
-
+    enterKey = (e)=>{
+      if(e.key === "Enter"){
+        e.preventDefault()
+        this.addComment(e)
+      }
+    }
+    deleteButton = (e) =>{
+      this.setState({plusComment: ''})
+    }
     render() {
-      const newOne = this.state.comments.map((el) =>       
-      <li>
-        <div class="plusTypedComment">
-              <div><span>sanghun</span><span class="plusFeedComment">{el}</span></div>
-              <div>
-                  <div class="likeDeleteButton">
-                      <img alt = "/"src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" class="plusCommentLike"/>
-                  </div>
-                  <button class="commentDeleteButton" type="submit">
-                      <img alt = "/"class="plusCommentDeleteBtn" src= "../public/images/deletebtn.png"/>
-                  </button>
-              </div>
-          </div>
-      </li>
-            
-            )
+      // const newOne = this.state.comments.map((el) =>       
+      // <li value = {this.state.plusComment} >
+      //   <div class="plusTypedComment">
+      //         <div><span>sanghun</span><span class="plusFeedComment">{el}</span></div>
+      //         <div>
+      //             <div class="likeDeleteButton">
+      //                 <img alt = "/"src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" class="plusCommentLike"/>
+      //             </div>
+      //             <button onClick ={this.deleteButton} class="commentDeleteButton" type="submit">
+      //                 <img alt = "/"class="plusCommentDeleteBtn" src= "../images/deletebtn.png"/>
+      //             </button>
+      //         </div>
+      //     </div>
+      // </li>
+
+
         return (
                 <section className="feed">
                   <header>
@@ -97,14 +110,34 @@ class Feed extends Component {
                             </span>
                           </div>
                         </div>
-                      {newOne}
+                      {this.state.comments.map((comment) => (
+                          <li key = {comment.id}>
+                            <div class="plusTypedComment">
+                                  <div><span>{comment.username}</span><span className="plusFeedComment">{comment.comment}</span></div>
+                                  <div>
+                                      <div className="likeDeleteButton">
+                                          <img alt = "/"src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" className="plusCommentLike"/>
+                                      </div>
+                                      <button onClick ={this.deleteButton} className="commentDeleteButton" type="submit">
+                                          <img alt = "/"className="plusCommentDeleteBtn" src= "../images/deletebtn.png"/>
+                                      </button>
+                                  </div>
+                              </div>
+                          </li>))}
                       </ul>
                       <div className="feedPostingTime">
                         77 Minute
                       </div>
                     </div>
                     <section className="feedCommentInput">
-        <textarea value ={this.state.input} onChange = {this.inputText} className="commentInputTextarea" type="text" placeholder="Add a comment..."></textarea>
+                    <textarea  
+                    onKeyDown = {this.enterKey} 
+                    value ={this.state.input} 
+                    onChange = {this.inputText} 
+                    className="commentInputTextarea" 
+                    type="text" 
+                    placeholder="Add a comment...">
+                    </textarea>
                       <button onClick = {() => {
                         this.addComment();
                       }
