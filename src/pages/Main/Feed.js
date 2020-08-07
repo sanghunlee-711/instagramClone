@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-// let mock = [{id:1 , username: 'name1', comment:'what1'}, {id:2 , username: 'name2', comment:'what2'}]
-let mock = []
+let mock = [{id:1 , username: 'Gareth', comment:'Hello'}, {id:2 , username: 'Lio', comment:'Ohla'}]
+// let mock = []
 
 class Feed extends Component {
     constructor(props){
       super(props)
 
       this.state = {
-        id: 0,
+        id: 3,
         input : '',
         comments: [...mock],
         plusComment: '',
@@ -25,7 +25,9 @@ class Feed extends Component {
         // comments: [...this.state.comments, this.state.input]
       }, ()=> console.log(this.state.comments))
       this.setState({input:''})
-      this.state.comments.push({id: this.state.id, username:'rarara', comment: this.state.input})
+      console.log("relly work?")
+      this.setState({comments: this.state.comments.concat({id: this.state.id, username:'Sanghun', comment: this.state.input}) })
+      console.log("is add work?")
       console.log(this.state.comments)
     }
     enterKey = (e)=>{
