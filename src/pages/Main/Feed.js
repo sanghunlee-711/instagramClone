@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
+import Reply from'./Reply';
 
 let mock = [{id:1 , username: 'Gareth', comment:'Hello'}, {id:2 , username: 'Lio', comment:'Ohla'}]
-// let mock = []
 
 class Feed extends Component {
     constructor(props){
       super(props)
-
       this.state = {
         id: 3,
         input : '',
@@ -14,48 +13,32 @@ class Feed extends Component {
         plusComment: '',
       }
     }
+
     inputText =(e)=>{
       this.setState({input : e.target.value}, ()=> { 
         console.log(this.state.input)
       })
     }
+
     addComment = (e) => {
       this.setState({id: this.state.id+1})
-      this.setState({
-        // comments: [...this.state.comments, this.state.input]
-      }, ()=> console.log(this.state.comments))
       this.setState({input:''})
-      console.log("relly work?")
       this.setState({comments: this.state.comments.concat({id: this.state.id, username:'Sanghun', comment: this.state.input}) })
-      console.log("is add work?")
       console.log(this.state.comments)
     }
+
     enterKey = (e)=>{
       if(e.key === "Enter"){
         e.preventDefault()
         this.addComment(e)
       }
     }
+
     deleteButton = (e) =>{
       this.setState({plusComment: ''})
     }
+
     render() {
-      // const newOne = this.state.comments.map((el) =>       
-      // <li value = {this.state.plusComment} >
-      //   <div class="plusTypedComment">
-      //         <div><span>sanghun</span><span class="plusFeedComment">{el}</span></div>
-      //         <div>
-      //             <div class="likeDeleteButton">
-      //                 <img alt = "/"src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" class="plusCommentLike"/>
-      //             </div>
-      //             <button onClick ={this.deleteButton} class="commentDeleteButton" type="submit">
-      //                 <img alt = "/"class="plusCommentDeleteBtn" src= "../images/deletebtn.png"/>
-      //             </button>
-      //         </div>
-      //     </div>
-      // </li>
-
-
         return (
                 <section className="feed">
                   <header>
@@ -112,10 +95,10 @@ class Feed extends Component {
                             </span>
                           </div>
                         </div>
-                      {this.state.comments.map((comment) => (
-                          <li key = {comment.id}>
+                      {/* {this.state.comments.map((reply) => (
+                          <li key = {reply.id}>
                             <div class="plusTypedComment">
-                                  <div><span>{comment.username}</span><span className="plusFeedComment">{comment.comment}</span></div>
+                                  <div><span>{reply.username}</span><span className="plusFeedComment">{reply.comment}</span></div>
                                   <div>
                                       <div className="likeDeleteButton">
                                           <img alt = "/"src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" className="plusCommentLike"/>
@@ -125,7 +108,8 @@ class Feed extends Component {
                                       </button>
                                   </div>
                               </div>
-                          </li>))}
+                          </li>))} */}
+                          <Reply comments={this.state.comments}></Reply>
                       </ul>
                       <div className="feedPostingTime">
                         77 Minute
