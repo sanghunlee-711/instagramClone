@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Reply from'./Reply';
 
-let mock = [{id:1 , username: 'Gareth', comment:'Hello'}, {id:2 , username: 'Lio', comment:'Ohla'}]
+let mockdata = [{id:1 , username: 'Gareth', comment:'Hello'}, {id:2 , username: 'Lio', comment:'Ohla'}]
 
 class Feed extends Component {
     constructor(props){
@@ -9,7 +9,7 @@ class Feed extends Component {
       this.state = {
         id: 3,
         input : '',
-        comments: [...mock],
+        comments: mockdata,
         plusComment: '',
       }
     }
@@ -19,6 +19,7 @@ class Feed extends Component {
         console.log(this.state.input)
       })
     }
+    
 
     addComment = (e) => {
       this.setState({id: this.state.id+1})
@@ -33,11 +34,12 @@ class Feed extends Component {
         this.addComment(e)
       }
     }
-
-    deleteButton = (e) =>{
-      this.setState({plusComment: ''})
+    deleteComment = (id)=>{
+      console.log(id)
+      this.setState({comments: this.state.comments.filter(comment => comment.id !== id) });
+      console.log("??@?@?@?@?@?")
     }
-
+    
     render() {
         return (
                 <section className="feed">
@@ -95,21 +97,11 @@ class Feed extends Component {
                             </span>
                           </div>
                         </div>
-                      {/* {this.state.comments.map((reply) => (
-                          <li key = {reply.id}>
-                            <div class="plusTypedComment">
-                                  <div><span>{reply.username}</span><span className="plusFeedComment">{reply.comment}</span></div>
-                                  <div>
-                                      <div className="likeDeleteButton">
-                                          <img alt = "/"src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" className="plusCommentLike"/>
-                                      </div>
-                                      <button onClick ={this.deleteButton} className="commentDeleteButton" type="submit">
-                                          <img alt = "/"className="plusCommentDeleteBtn" src= "../images/deletebtn.png"/>
-                                      </button>
-                                  </div>
-                              </div>
-                          </li>))} */}
-                          <Reply comments={this.state.comments}></Reply>
+                          <Reply 
+                            comments={this.state.comments} 
+                            onClick={(id)=>{
+                              this.deleteComment(id);
+                              }}></Reply>
                       </ul>
                       <div className="feedPostingTime">
                         77 Minute
@@ -117,17 +109,14 @@ class Feed extends Component {
                     </div>
                     <section className="feedCommentInput">
                     <textarea  
-                    onKeyDown = {this.enterKey} 
+                    onKeyPress = {this.enterKey} 
                     value ={this.state.input} 
                     onChange = {this.inputText} 
                     className="commentInputTextarea" 
                     type="text" 
                     placeholder="Add a comment...">
                     </textarea>
-                      <button onClick = {() => {
-                        this.addComment();
-                      }
-                        } type="submit" className="commentSubmitButton">
+                      <button onClick = {() => this.addComment()} type="submit" className="commentSubmitButton">
                         Post
                       </button>
                     </section>

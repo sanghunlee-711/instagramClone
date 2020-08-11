@@ -1,20 +1,19 @@
 import React from'react';
-import {withRouter} from 'react-router-dom';
-// import {Link} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
+
 
 class Content extends React.Component{
     constructor(props){
         super(props)
 
         this.state ={
-            id: 'id:',
-            pw: 'pw:',
+            id: '',
+            pw: '',
             button: 'button',
             disabled: true,
         }
 
     }
-
 
     updateId =(evt)=>{
         this.setState({id : evt.target.value})
@@ -25,6 +24,7 @@ class Content extends React.Component{
             this.setState({disabled : true});
         }
     }
+    
     updatePw =(e)=>{
         this.setState({pw:e.target.value})
         if(this.state.id.length >=5 && this.state.pw.length>=5 && this.state.id.includes("@")){
@@ -36,10 +36,10 @@ class Content extends React.Component{
     }
 
 
-    LoginButton = (evt)=>{
-        console.log(this.state.id)
-        console.log(this.state.pw)
-    }
+    // LoginButton = (evt)=>{
+    //     console.log(this.state.id)
+    //     console.log(this.state.pw)
+    // }
 
 
     render(){
@@ -47,13 +47,15 @@ class Content extends React.Component{
             <div className="login">
                 <div className="loginContentWrapper">
                     <img alt ='' className="instaLogo" src="../images/logo_text.png" />
-                    <input 
+                    <input
+                    value ={this.state.id} 
                     onChange ={this.updateId} 
                     className="inputId" 
                     type="text" 
                     placeholder="Phone number, username, or email"/>
 
                     <input 
+                    value = {this.state.pw}
                     onChange ={this.updatePw} 
                     className="inputPw" type="text" 
                     placeholder="Password"/>
